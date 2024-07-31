@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package idl;
+
+// go_package 指定生成的go代码的包名和路径
+option go_package = "./idl/my_proto;student_service";
+
+//
+import "google/protobuf/timestamp.proto";
+
+message Student {
+  string name = 1;
+  int32 age = 2;
+  bool gender = 3;
+  float height = 4;
+  repeated string locations = 5;
+  map<string, float> scores = 6;
+  google.protobuf.Timestamp birthday = 7;
+}
+
+message StudentRequest {
+  string StudentId = 1;
+}
+
+service StudentService {
+  rpc GetStudentInfo(StudentRequest) returns (Student) {}
+}
