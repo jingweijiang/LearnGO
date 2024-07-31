@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/redis/go-redis/v9"
 	"time"
@@ -71,6 +72,48 @@ func redisHash(ctx context.Context, client *redis.Client) {
 
 }
 
+type Student struct {
+	Name      string             `json:"name"`
+	Age       int32              `json:"age"`
+	Gender    bool               `json:"gender"`
+	Height    float64            `json:"height"`
+	Locations []string           `json:"locations"`
+	Scores    map[string]float32 `json:"scores"`
+}
+
+func redisSetStudent(ctx context.Context, client *redis.Client) {
+	student := Student{
+		Name:      "大脸猫",
+		Age:       18,
+		Gender:    true,
+		Height:    1.8,
+		Locations: []string{"北京", "上海", "广州"},
+		Scores:    map[string]float32{"语文": 80, "数学": 90, "英语": 85},
+	}
+	// 序列化
+	key := "student:1001"
+	value, err := json.Marshal(student)
+	if err != nil {
+		panic(err)
+	}
+	err = client.Set(ctx, key, value, 0).Err()
+	if err != nil {
+		panic(err)
+	}
+	// 反序列化
+	var stu Student
+	val, err := client.Get(ctx, key).Result()
+	if err != nil {
+		panic(err)
+	}
+	err = json.Unmarshal([]byte(val), &stu)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(stu)
+
+}
+
 func main() {
 	fmt.Println("Redis 操作")
 	rdb := redis.NewClient(&redis.Options{
@@ -88,5 +131,6 @@ func main() {
 	}
 	//redisString(ctx, rdb)
 	//redisList(ctx, rdb)
-	redisHash(ctx, rdb)
+	//redisHash(ctx, rdb)
+	redisSetStudent(ctx, rdb)
 }
