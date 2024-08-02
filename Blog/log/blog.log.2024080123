@@ -1,0 +1,4 @@
+time="2024-08-01 23:42:51.082" level=info msg="test log"
+time="2024-08-01 23:42:51.090" level=error msg="test error log"
+time="2024-08-01 23:42:51.090" level=debug msg="test debug log"
+time="2024-08-01 23:42:51.090" level=warning msg="test warn log"

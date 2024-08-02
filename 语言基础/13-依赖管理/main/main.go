@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"g6/util"
 	"g6/util/math"
-	//math "g6/util/math"	// 也可以这样导入重命名包
-	//_ "g6/util/math"	// 也可以这样导入包，但不使用包内的任何变量，只执行导入包的初始化init函数
+	//math "g6/utils/math"	// 也可以这样导入重命名包
+	//_ "g6/utils/math"	// 也可以这样导入包，但不使用包内的任何变量，只执行导入包的初始化init函数
 	"github.com/bytedance/sonic"
 )
 

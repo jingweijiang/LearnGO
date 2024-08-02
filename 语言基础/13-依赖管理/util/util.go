@@ -11,6 +11,6 @@ func Add(a, b int) int {
 }
 
 func init() {
-	fmt.Println("init util")
+	fmt.Println("init utils")
 
 }
